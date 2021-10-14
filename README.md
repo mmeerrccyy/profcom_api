@@ -367,6 +367,8 @@ ALLOW:
 
 </details>
 
+---------------------------------
+
 ### Amount of Vacancies and Resumes API
 
 ALLOW: 
