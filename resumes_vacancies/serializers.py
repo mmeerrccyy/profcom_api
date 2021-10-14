@@ -20,8 +20,6 @@ class VacancySerializer(serializers.ModelSerializer):
 
 
 class ResumeSerializer(serializers.ModelSerializer):
-    students_work_time = WorkTimeSerializer(many=True)
-
     class Meta:
         model = models.ResumeModel
         fields = '__all__'
@@ -37,3 +35,8 @@ class DirectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.DirectionsModel
         fields = '__all__'
+
+
+class AmountSerializer(serializers.Serializer):
+    vacancy_amount = serializers.IntegerField()
+    resume_amount = serializers.IntegerField()

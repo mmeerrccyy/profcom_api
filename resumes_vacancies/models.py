@@ -21,6 +21,9 @@ class WorkTimeModel(models.Model):
     """
     work_time = models.CharField(verbose_name='Бажаний вид діяльності', max_length=90)
 
+    def __str__(self):
+        return self.work_time
+
 
 class VacancyModel(models.Model):
     """
@@ -30,7 +33,7 @@ class VacancyModel(models.Model):
     company_short_description = models.TextField(verbose_name='Короткий опис компанії (якщо ви з нами вже знайомі, '
                                                               'то можете лишити поле пустим)', blank=True)
     company_direction = models.ForeignKey(to='DirectionsModel', on_delete=models.RESTRICT)
-    vacancy_name = models.CharField(verbose_name='Назва вакансії', max_length=45)
+    vacancy_name = models.CharField(verbose_name='Назва вакансії', max_length=90)
     vacancy_description = models.TextField(verbose_name='Опис вакансії та обов\'язки')
     vacancy_requirements = models.TextField(verbose_name='Вимоги до кандидата')
     vacancy_working_conditions = models.TextField(verbose_name='Умови праці')
@@ -62,9 +65,11 @@ class ResumeModel(models.Model):
     students_email = models.CharField(verbose_name='Електронна пошта', max_length=90)
     students_direction = models.ForeignKey(to='DirectionsModel', on_delete=models.RESTRICT)
     students_work_time = models.ManyToManyField(to='WorkTimeModel', related_name='work_time_list')
+    # students_work_time = models.TextField(verbose_name='Бажаний вид діяльності')
     students_resume_file = models.FileField(verbose_name='Резюме (PDF)', upload_to=upload_to_user, blank=True,
                                             null=True)
     students_resume_link = models.TextField(verbose_name='Посилання на портфолія', blank=True, null=True)
+    students_social_networks = models.TextField(verbose_name='Посилання на соц. мережі', blank=True, null=True)
     resume_date_added = models.DateTimeField(auto_now=True)
 
     @staticmethod
