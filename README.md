@@ -260,7 +260,6 @@ ALLOW:
 ```json
 
 {
-  "id": 1,
   "company_name": "Test Company 2",
   "company_short_description": "Test description 2",
   "vacancy_name": "Test vacancy name 2",
