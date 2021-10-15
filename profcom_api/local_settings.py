@@ -1,12 +1,9 @@
-DATABASES = {
-    'default':{
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'profcom_test_api',
-        'USER': 'django',
-        'PASSWORD': 'django_test',
-        'HOST': 'db',
-        'PORT': '5432',
-    }
-}
+import os
+
+import dj_database_url
+
+DATABASES = {}
+
+DATABASES['default'] = dj_database_url.config(default=os.environ.get("DATABASE_URL"))
 
 CORS_ALLOW_ALL_ORIGINS: True

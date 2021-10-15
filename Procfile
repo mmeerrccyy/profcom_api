@@ -1,0 +1,1 @@
+web: gunicorn profcom_api.wsgi --log-file
