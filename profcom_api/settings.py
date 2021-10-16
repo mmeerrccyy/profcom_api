@@ -135,7 +135,9 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = ['https://lpnu-recruiting.vercel.app']
+CORS_ORIGIN_WHITELIST = [
+    'https://lpnu-recruiting.vercel.app'
+]
 
 try:
     from .local_settings import *
