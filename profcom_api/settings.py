@@ -136,7 +136,7 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_WHITELIST = [
-    'https://lpnu-recruiting.vercel.app'
+    'https://studrecruit.lpnu.ua'
 ]
 
 try:
