@@ -48,8 +48,7 @@ class ResumeAPIView(generics.ListCreateAPIView):
 
 
 class AmountVacancyResumeAPIView(views.APIView):
-    @staticmethod
-    def get(request):
+    def get(self, request):
         vacancy_amount = models.VacancyModel.objects.all().count()
         resume_amount = models.ResumeModel.objects.all().count()
         data = {'vacancy_amount': vacancy_amount, 'resume_amount': resume_amount}
