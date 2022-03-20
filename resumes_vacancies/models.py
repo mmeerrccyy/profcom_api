@@ -3,8 +3,6 @@ import datetime
 from django.db import models
 
 
-# Create your models here.
-
 class DirectionsModel(models.Model):
     """
     Direction model for Vacancies and Resumes
@@ -25,19 +23,55 @@ class WorkTimeModel(models.Model):
         return self.work_time
 
 
+class DegreeModel(models.Model):
+    """
+    Degree model for Students Resumes
+    """
+    degree = models.CharField(verbose_name='Освіта', max_length=30)
+
+    def __str__(self):
+        return self.degree
+
+
+class ExperienceModel(models.Model):
+    """
+    Experience model for Students Resumes
+    """
+    experience = models.CharField(verbose_name='Досвід роботи', max_length=30)
+
+    def __str__(self):
+        return self.experience
+
+
+class EnglishLevelModel(models.Model):
+    """
+    English level model for Students Resumes
+    """
+    level = models.CharField(verbose_name='Досвід роботи', max_length=30)
+
+    def __str__(self):
+        return self.level
+
+
 class VacancyModel(models.Model):
     """
     Vacancy model
     """
-    company_name = models.CharField(verbose_name='Назва компанії', max_length=45)
+    company_name = models.CharField(verbose_name='Назва компанії', max_length=120)
     company_short_description = models.TextField(verbose_name='Короткий опис компанії (якщо ви з нами вже знайомі, '
                                                               'то можете лишити поле пустим)', blank=True)
-    company_direction = models.ForeignKey(to='DirectionsModel', on_delete=models.RESTRICT)
-    vacancy_name = models.CharField(verbose_name='Назва вакансії', max_length=90)
+    company_direction = models.ForeignKey(verbose_name='Вектор роботи компанії', to='DirectionsModel',
+                                          on_delete=models.RESTRICT)
+    vacancy_name = models.CharField(verbose_name='Назва вакансії', max_length=200)
     vacancy_description = models.TextField(verbose_name='Опис вакансії та обов\'язки')
+    working_time = models.ManyToManyField(verbose_name='Вид зайнятості', to='WorkTimeModel')
     vacancy_requirements = models.TextField(verbose_name='Вимоги до кандидата')
-    vacancy_working_conditions = models.TextField(verbose_name='Умови праці')
-    vacancy_salary = models.CharField(verbose_name='Грошова винагорода', max_length=20)
+    vacancy_working_conditions = models.TextField(verbose_name='Умови праці', blank=True)
+    vacancy_degree = models.ManyToManyField(verbose_name='Освіта', to='DegreeModel')
+    working_experience = models.ManyToManyField(verbose_name='Досвід роботи', to='ExperienceModel')
+    minimal_english_level = models.ForeignKey(verbose_name='Мінімальний рівень володіння англійською',
+                                              to='EnglishLevelModel', on_delete=models.RESTRICT, null=True, blank=True)
+    vacancy_salary = models.CharField(verbose_name='Грошова винагорода', max_length=200)
     vacancy_benefits = models.TextField(verbose_name='Переваги')
     vacancy_contacts = models.TextField(verbose_name='Контакти')
     company_website = models.TextField(verbose_name='Посилання на сайт компанії', blank=True)
@@ -63,9 +97,10 @@ class ResumeModel(models.Model):
     students_pib = models.CharField(verbose_name='П.І.Б.', max_length=90)
     students_phone_number = models.CharField(verbose_name='Номер телефону', max_length=50)
     students_email = models.CharField(verbose_name='Електронна пошта', max_length=90)
-    students_direction = models.ForeignKey(to='DirectionsModel', on_delete=models.RESTRICT)
-    students_work_time = models.ManyToManyField(to='WorkTimeModel', related_name='work_time_list')
-    # students_work_time = models.TextField(verbose_name='Бажаний вид діяльності')
+    students_direction = models.ForeignKey(verbose_name='Вектор роботи', to='DirectionsModel',
+                                           on_delete=models.RESTRICT)
+    students_work_time = models.ManyToManyField(verbose_name='Бажаний вид діяльності', to='WorkTimeModel',
+                                                related_name='work_time_list')
     students_resume_file = models.FileField(verbose_name='Резюме (PDF)', upload_to=upload_to_user, blank=True,
                                             null=True)
     students_resume_link = models.TextField(verbose_name='Посилання на портфолія', blank=True, null=True)

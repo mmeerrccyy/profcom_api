@@ -1,10 +1,7 @@
 from rest_framework import views, generics
 from rest_framework.response import Response
-from djqscsv import render_to_csv_response
+# from djqscsv import render_to_csv_response
 from . import models, serializers
-
-
-# Create your views here.
 
 
 class GetDirectionsAPIView(generics.ListAPIView):
@@ -15,6 +12,21 @@ class GetDirectionsAPIView(generics.ListAPIView):
 class GetWorkTimeAPIView(generics.ListAPIView):
     queryset = models.WorkTimeModel.objects.all()
     serializer_class = serializers.WorkTimeSerializer
+
+
+class GetDegreeAPIView(generics.ListAPIView):
+    queryset = models.DegreeModel.objects.all()
+    serializer_class = serializers.DegreeSerializer
+
+
+class GetExperienceAPIView(generics.ListAPIView):
+    queryset = models.ExperienceModel.objects.all()
+    serializer_class = serializers.ExperienceSerializer
+
+
+class GetEnglishLevelAPIView(generics.ListAPIView):
+    queryset = models.EnglishLevelModel.objects.all()
+    serializer_class = serializers.EnglishLevelSerializer
 
 
 class VacancyAPIView(generics.ListCreateAPIView):
@@ -36,8 +48,8 @@ class ResumeAPIView(generics.ListCreateAPIView):
 
 
 class AmountVacancyResumeAPIView(views.APIView):
-
-    def get(self, request):
+    @staticmethod
+    def get(request):
         vacancy_amount = models.VacancyModel.objects.all().count()
         resume_amount = models.ResumeModel.objects.all().count()
         data = {'vacancy_amount': vacancy_amount, 'resume_amount': resume_amount}
