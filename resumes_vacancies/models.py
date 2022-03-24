@@ -59,22 +59,22 @@ class VacancyModel(models.Model):
     """
     company_name = models.CharField(verbose_name='Назва компанії', max_length=120)
     company_short_description = models.TextField(verbose_name='Короткий опис компанії (якщо ви з нами вже знайомі, '
-                                                              'то можете лишити поле пустим)', blank=True)
+                                                              'то можете лишити поле пустим)', blank=True, null=True)
     company_direction = models.ForeignKey(verbose_name='Вектор роботи компанії', to='DirectionsModel',
                                           on_delete=models.RESTRICT)
     vacancy_name = models.CharField(verbose_name='Назва вакансії', max_length=200)
     vacancy_description = models.TextField(verbose_name='Опис вакансії та обов\'язки')
     working_time = models.ManyToManyField(verbose_name='Вид зайнятості', to='WorkTimeModel')
     vacancy_requirements = models.TextField(verbose_name='Вимоги до кандидата')
-    vacancy_working_conditions = models.TextField(verbose_name='Умови праці', blank=True)
+    vacancy_working_conditions = models.TextField(verbose_name='Умови праці', blank=True, null=True)
     vacancy_degree = models.ManyToManyField(verbose_name='Освіта', to='DegreeModel')
     working_experience = models.ManyToManyField(verbose_name='Досвід роботи', to='ExperienceModel')
     minimal_english_level = models.ForeignKey(verbose_name='Мінімальний рівень володіння англійською',
-                                              to='EnglishLevelModel', on_delete=models.RESTRICT, null=True, blank=True)
+                                              to='EnglishLevelModel', on_delete=models.RESTRICT, blank=True, null=True)
     vacancy_salary = models.CharField(verbose_name='Грошова винагорода', max_length=200)
     vacancy_benefits = models.TextField(verbose_name='Переваги')
     vacancy_contacts = models.TextField(verbose_name='Контакти')
-    company_website = models.TextField(verbose_name='Посилання на сайт компанії', blank=True)
+    company_website = models.TextField(verbose_name='Посилання на сайт компанії', blank=True, null=True)
     vacancy_date_added = models.DateTimeField(auto_now=True)
 
     @staticmethod
@@ -103,7 +103,7 @@ class ResumeModel(models.Model):
                                                 related_name='work_time_list')
     students_resume_file = models.FileField(verbose_name='Резюме (PDF)', upload_to=upload_to_user, blank=True,
                                             null=True)
-    students_resume_link = models.TextField(verbose_name='Посилання на портфолія', blank=True, null=True)
+    students_resume_link = models.TextField(verbose_name='Посилання на портфоліо', blank=True, null=True)
     students_social_networks = models.TextField(verbose_name='Посилання на соц. мережі', blank=True, null=True)
     resume_date_added = models.DateTimeField(auto_now=True)
 

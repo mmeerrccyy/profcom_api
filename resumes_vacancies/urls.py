@@ -3,12 +3,14 @@ from . import views
 
 
 urlpatterns = [
-    path('vacancies/', views.VacancyAPIView.as_view()),
-    path('directions/', views.GetDirectionsAPIView.as_view()),
-    path('work_times/', views.GetWorkTimeAPIView.as_view()),
-    path('degree/', views.GetDegreeAPIView.as_view()),
-    path('experience/', views.GetExperienceAPIView.as_view()),
-    path('english_level/', views.GetEnglishLevelAPIView.as_view()),
-    path('resumes/', views.ResumeAPIView.as_view()),
-    path('amount/', views.AmountVacancyResumeAPIView.as_view()),
+    path('directions/', views.GetDirectionsAPIView.as_view(), name='directions'),
+    path('work_time/', views.GetWorkTimeAPIView.as_view(), name='work_time'),
+    path('degrees/', views.GetDegreeAPIView.as_view(), name='degrees'),
+    path('experiences/', views.GetExperienceAPIView.as_view(), name='experiences'),
+    path('english_levels/', views.GetEnglishLevelAPIView.as_view(), name='english_levels'),
+
+    path('vacancies/', views.VacancyAPIView.as_view(), name='vacancies'),
+    path('resumes/', views.ResumeAPIView.as_view(), name='resumes'),
+
+    path('amount/', views.AmountVacancyResumeAPIView.as_view(), name='amount'),
 ]

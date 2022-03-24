@@ -33,15 +33,18 @@ class EnglishLevelSerializer(serializers.ModelSerializer):
 
 
 class VacancySerializer(serializers.ModelSerializer):
-    company_direction = serializers.SlugRelatedField(slug_field='direction', read_only=True)
-    working_time = serializers.SlugRelatedField(slug_field='work_time', read_only=True, many=True)
-    vacancy_degree = serializers.SlugRelatedField(slug_field='degree', read_only=True, many=True)
-    working_experience = serializers.SlugRelatedField(slug_field='experience', read_only=True, many=True)
-    minimal_english_level = serializers.SlugRelatedField(slug_field='level', read_only=True)
-
     class Meta:
         model = models.VacancyModel
         fields = '__all__'
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['company_direction'] = DirectionSerializer(instance.company_direction).data
+        response['working_time'] = WorkTimeSerializer(instance.working_time, many=True).data
+        response['vacancy_degree'] = DegreeSerializer(instance.vacancy_degree, many=True).data
+        response['working_experience'] = ExperienceSerializer(instance.working_experience, many=True).data
+        response['minimal_english_level'] = EnglishLevelSerializer(instance.minimal_english_level).data
+        return response
 
 
 class ResumeSerializer(serializers.ModelSerializer):
